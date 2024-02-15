@@ -6,6 +6,6 @@
 
 Yeyoung Han
 
-YoungWoo Kim
+Youngwoo Kim
 
 Ki Min Kang
