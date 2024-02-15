@@ -3,7 +3,7 @@
 **This is a project 2 of Comp Sci 564: Database Management Systems: Design and Implementation.
 **
 
-**Team Members:**
+**🎀 Team Members:**
 
 Yeyoung Han
 
