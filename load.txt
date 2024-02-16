@@ -1,0 +1,22 @@
+-- Set the separator for the data files
+.separator "|"
+
+-- Import data into the Item table
+.import items.dat Item
+-- Replace any 'NULL' values with actual NULLs in Item table
+UPDATE Item SET ColumnName = NULL WHERE ColumnName = 'NULL'; -- Replace 'ColumnName' with actual column names as needed
+
+-- Import data into the Category table
+.import categories.dat Category
+-- Replace any 'NULL' values in Category table
+UPDATE Category SET ColumnName = NULL WHERE ColumnName = 'NULL';
+
+-- Import data into the User table
+.import users.dat User
+-- Replace any 'NULL' values in User table
+UPDATE User SET ColumnName = NULL WHERE ColumnName = 'NULL';
+
+-- Import data into the Bid table
+.import bids.dat Bid
+-- Replace any 'NULL' values in Bid table
+UPDATE Bid SET ColumnName = NULL WHERE ColumnName = 'NULL';
