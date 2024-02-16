@@ -10,3 +10,11 @@ We are provided with a fairly large volume of data downloaded from the eBay web 
 1. Yeyoung Han | Computer Science, Math student at UW-Madison
 2. Youngwoo Kim | Computer Science, Data Science student at UW-Madison
 3. Ki Min Kang | Computer Science student at UW-Madison
+
+## Project File Information
+
+📍Folder: ebay_data
+    - includes items_schema.txt
+    - includes json files that contain a total of about 20,000 auctions.
+📍runParser.sh
+📍skeleton_parser.py
