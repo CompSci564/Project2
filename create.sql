@@ -1,8 +1,17 @@
-DROP TABLE IF EXISTS Item;
-DROP TABLE IF EXISTS Category;
-DROP TABLE IF EXISTS Bid;
-DROP TABLE IF EXISTS User;
+-- User Table
+CREATE TABLE User (
+    UserID INTEGER PRIMARY KEY,
+    Location TEXT,
+    Country TEXT,
+    Rating INTEGER
+);
 
+-- Category Table
+CREATE TABLE Category (
+    CategoryName TEXT PRIMARY KEY
+);
+
+-- Item Table
 CREATE TABLE Item (
     ItemID INTEGER PRIMARY KEY,
     Name TEXT,
@@ -12,25 +21,20 @@ CREATE TABLE Item (
     First_Bid REAL,
     Buy_Price REAL,
     Started DATE,
-    Ends DATE
+    Ends DATE,
+    SellerID INTEGER,
+    CategoryName TEXT,
+    FOREIGN KEY (SellerID) REFERENCES User(UserID),
+    FOREIGN KEY (CategoryName) REFERENCES Category(CategoryName)
 );
 
-CREATE TABLE Category (
-    CategoryName TEXT PRIMARY KEY
-);
-
-CREATE TABLE User (
-    UserID INTEGER PRIMARY KEY,
-    Location TEXT,
-    Country TEXT,
-    Rating INTEGER
-);
-
+-- Bid Table
 CREATE TABLE Bid (
+    ItemID INTEGER,
+    UserID INTEGER,
     Amount REAL,
     Time DATE,
-    ItemID INTEGER NOT NULL,
-    UserID INTEGER NOT NULL,
+    PRIMARY KEY (ItemID, UserID),
     FOREIGN KEY (ItemID) REFERENCES Item(ItemID),
     FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
