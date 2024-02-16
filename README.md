@@ -13,8 +13,10 @@ We are provided with a fairly large volume of data downloaded from the eBay web 
 
 ## Project File Information
 
-📍Folder: ebay_data
+📍**Folder: ebay_data**
     - includes items_schema.txt
     - includes json files that contain a total of about 20,000 auctions.
-📍runParser.sh
-📍skeleton_parser.py
+
+📍**runParser.sh**
+
+📍**skeleton_parser.py**
