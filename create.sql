@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS User;
 CREATE TABLE Item (
     ItemID INTEGER PRIMARY KEY,
     Name TEXT,
+    Currently REAL,
     Description TEXT,
     Number_of_Bids INTEGER,
     First_Bid REAL,
