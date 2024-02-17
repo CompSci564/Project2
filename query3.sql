@@ -1,4 +1,6 @@
-SELECT COUNT(DISTINCT ItemID) 
-FROM Item 
-GROUP BY ItemID 
-HAVING COUNT(DISTINCT CategoryName) = 4;
+SELECT COUNT(*)
+FROM (
+    SELECT ItemID
+    FROM Category
+    GROUP BY ItemID 
+    HAVING COUNT(DISTINCT CategoryName) = 4);

@@ -2,6 +2,15 @@
 rm -f *.dat
 python3 skeleton_parser.py ebay_data/items-*.json
 
+input_file="users.dat"
+temp_file="${input_file}.tmp"
+
+# Use awk to remove duplicate lines based on the first field
+sort -k1,1 -k2,2 $input_file | awk '!seen[$1]++' $input_file > $temp_file
+
+# Move the temporary file back to the original file
+mv $temp_file $input_file
+
 input_file="categories.dat"
 temp_file="${input_file}.tmp"
 

@@ -107,7 +107,7 @@ def parseJson(json_file):
             seller_rating = str(item['Seller']['Rating'])
             if seller_id not in existing_users:
                 with open('users.dat', 'a') as user_file:
-                    user_file.write(f"{seller_id}{columnSeparator}\"{location}\"{columnSeparator}\"{country}\"{columnSeparator}{seller_rating}\n")
+                    user_file.write(f"{seller_id}{columnSeparator}{seller_rating}{columnSeparator}\"{location}\"{columnSeparator}\"{country}\"\n")
                     existing_users.add(seller_id)
 
             with open('items.dat', 'a') as items_file:
@@ -128,7 +128,7 @@ def parseJson(json_file):
                     # Add bidder to users.dat if not already existing
                     if bidder_id not in existing_users:
                         with open('users.dat', 'a') as user_file:
-                            user_file.write(f"{bidder_id}{columnSeparator}\"{bidder_location}\"{columnSeparator}\"{bidder_country}\"{columnSeparator}{bidder_rating}\n")
+                            user_file.write(f"{bidder_id}{columnSeparator}{bidder_rating}{columnSeparator}\"{bidder_location}\"{columnSeparator}\"{bidder_country}\"\n")
                             existing_users.add(bidder_id)
 
                     # Write bid information to bids.dat

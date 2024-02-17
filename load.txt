@@ -6,3 +6,4 @@ update Item set Buy_Price = null where Buy_Price = 'NULL';
 update User set Country = null where Country = 'NULL';
 update User set Location = null where Location = 'NULL';
 
+.import categories.dat Category
