@@ -96,7 +96,7 @@ def parseJson(json_file):
                 user_file.write(f"{seller_id}{columnSeparator}{seller_rating}\n")
 
             with open('items.dat', 'a') as items_file:
-                items_file.write(f"{item_id}{columnSeparator}\"{name}\"{columnSeparator}{currently}{columnSeparator}\"{description}\"{columnSeparator}{number_of_bids}{columnSeparator}{first_bid}{columnSeparator}{buy_price}{columnSeparator}{started}{columnSeparator}{ends}\n")
+                items_file.write(f"{item_id}{columnSeparator}\"{name}\"{columnSeparator}{currently}{columnSeparator}\"{description}\"{columnSeparator}{number_of_bids}{columnSeparator}{first_bid}{columnSeparator}{buy_price}{columnSeparator}{started}{columnSeparator}{ends}{columnSeparator}{seller_id}{columnSeparator}{categories}\n")
 
             bids = item.get('Bids', [])
             if bids:
