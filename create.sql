@@ -1,15 +1,15 @@
--- User Table
-CREATE TABLE User (
-    UserID INTEGER PRIMARY KEY,
-    Location TEXT,
-    Country TEXT,
-    Rating INTEGER
-);
+-- -- User Table
+-- CREATE TABLE User (
+--     UserID INTEGER PRIMARY KEY,
+--     Location TEXT,
+--     Country TEXT,
+--     Rating INTEGER
+-- );
 
--- Category Table
-CREATE TABLE Category (
-    CategoryName TEXT PRIMARY KEY
-);
+-- -- Category Table
+-- CREATE TABLE Category (
+--     CategoryName TEXT PRIMARY KEY
+-- );
 
 -- Item Table
 CREATE TABLE Item (
@@ -28,13 +28,13 @@ CREATE TABLE Item (
     FOREIGN KEY (CategoryName) REFERENCES Category(CategoryName)
 );
 
--- Bid Table
-CREATE TABLE Bid (
-    ItemID INTEGER,
-    UserID INTEGER,
-    Amount REAL,
-    Time DATE,
-    PRIMARY KEY (ItemID, UserID),
-    FOREIGN KEY (ItemID) REFERENCES Item(ItemID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
-);
+-- -- Bid Table
+-- CREATE TABLE Bid (
+--     ItemID INTEGER,
+--     UserID INTEGER,
+--     Amount REAL,
+--     Time DATE,
+--     PRIMARY KEY (ItemID, UserID),
+--     FOREIGN KEY (ItemID) REFERENCES Item(ItemID),
+--     FOREIGN KEY (UserID) REFERENCES User(UserID)
+-- );
