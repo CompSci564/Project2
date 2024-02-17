@@ -72,8 +72,19 @@ def escape_quotes(s):
     return s.replace('"', '""') if s else s
 
 def parseJson(json_file):
+    existing_users = set()
+
+    try:
+        with open('users.dat', 'r') as f:
+            for line in f:
+                parts = line.strip().split('|')
+                user_id = parts[0]
+                existing_users.add(user_id)
+    except FileNotFoundError:
+        pass
+
     with open(json_file, 'r') as f:
-        items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json file
+        items = loads(f.read())['Items']
         for item in items:
             item_id = str(item['ItemID'])
             name = escape_quotes(item['Name'])
@@ -84,7 +95,10 @@ def parseJson(json_file):
             number_of_bids = str(item['Number_of_Bids'])
             started = transformDttm(item['Started'])
             ends = transformDttm(item['Ends'])
-            description = escape_quotes(item['Description']) if 'Description' in item else 'NULL'
+            description = escape_quotes(item.get('Description', 'NULL'))
+            location = escape_quotes(item.get('Location','NULL')) if 'Location' in item else 'NULL'
+            country = escape_quotes(item.get('Country','NULL')) if 'Country' in item else 'NULL'
+
 
             with open('categories.dat', 'a') as cat_file:
                 for category in categories:
@@ -92,20 +106,22 @@ def parseJson(json_file):
 
             seller_id = escape_quotes(item['Seller']['UserID'])
             seller_rating = str(item['Seller']['Rating'])
-            with open('users.dat', 'a') as user_file:
-                user_file.write(f"{seller_id}{columnSeparator}{seller_rating}\n")
+            if seller_id not in existing_users:
+                with open('users.dat', 'a') as user_file:
+                    user_file.write(f"{seller_id}{columnSeparator}\"{location}\"{columnSeparator}\"{country}\"{columnSeparator}{seller_rating}\n")
+                    existing_users.add(seller_id)
 
             with open('items.dat', 'a') as items_file:
                 items_file.write(f"{item_id}{columnSeparator}\"{name}\"{columnSeparator}{currently}{columnSeparator}\"{description}\"{columnSeparator}{number_of_bids}{columnSeparator}{first_bid}{columnSeparator}{buy_price}{columnSeparator}{started}{columnSeparator}{ends}{columnSeparator}{seller_id}{columnSeparator}{categories}\n")
 
             bids = item.get('Bids', [])
             if bids:
-                for bid_package in bids:  # Assuming each 'bid_package' contains the actual 'Bid' information
+                for bid_package in bids:
                     bid = bid_package.get('Bid', {})
                     bid_amount = transformDollar(bid.get('Amount', 'NULL'))
                     bid_time = transformDttm(bid.get('Time', 'NULL'))
                     bidder_id = escape_quotes(bid.get('Bidder', {}).get('UserID', 'NULL'))
-                        
+                    
                     with open('bids.dat', 'a') as bids_file:
                         bids_file.write(f"{item_id}{columnSeparator}\"{bidder_id}\"{columnSeparator}{bid_amount}{columnSeparator}{bid_time}\n")
         

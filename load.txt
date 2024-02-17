@@ -1,3 +1,8 @@
 .separator |
 .import items.dat Item
-update Item set Buy_Price = null where Buy_Price = "NULL"   -- Replace all token ‘NULL‘ values with null
+update Item set Buy_Price = null where Buy_Price = 'NULL';
+
+.import users.dat User
+update User set Country = null where Country = 'NULL';
+update User set Location = null where Location = 'NULL';
+
