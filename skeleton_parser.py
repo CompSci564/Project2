@@ -68,12 +68,15 @@ def transformDollar(money):
         return money
     return sub(r'[^\d.]', '', money)
 
+def escape_quotes(s):
+    return s.replace('"', '""') if s else s
+
 def parseJson(json_file):
     with open(json_file, 'r') as f:
         items = loads(f.read())['Items'] # creates a Python dictionary of Items for the supplied json file
         for item in items:
             item_id = str(item['ItemID'])
-            name = item['Name'].replace('"', '""')
+            name = escape_quotes(item['Name'])
             categories = item['Category']
             currently = transformDollar(item['Currently'])
             buy_price = transformDollar(item.get('Buy_Price', 'NULL')) if 'Buy_Price' in item else 'NULL'
@@ -81,19 +84,19 @@ def parseJson(json_file):
             number_of_bids = str(item['Number_of_Bids'])
             started = transformDttm(item['Started'])
             ends = transformDttm(item['Ends'])
-            description = item['Description'] if 'Description' in item else 'NULL'
+            description = escape_quotes(item['Description']) if 'Description' in item else 'NULL'
 
             with open('categories.dat', 'a') as cat_file:
                 for category in categories:
                     cat_file.write(f"{item_id}{columnSeparator}\"{category}\"\n")
 
-            seller_id = item['Seller']['UserID'].replace('"', '""')
+            seller_id = escape_quotes(item['Seller']['UserID'])
             seller_rating = str(item['Seller']['Rating'])
             with open('users.dat', 'a') as user_file:
                 user_file.write(f"{seller_id}{columnSeparator}{seller_rating}\n")
 
             with open('items.dat', 'a') as items_file:
-                items_file.write(f"{item_id}{columnSeparator}\"{name}\"{columnSeparator}\"{description}\"{columnSeparator}{currently}{columnSeparator}{buy_price}{columnSeparator}{first_bid}{columnSeparator}{number_of_bids}{columnSeparator}{started}{columnSeparator}{ends}\n")
+                items_file.write(f"{item_id}{columnSeparator}\"{name}\"{columnSeparator}{currently}{columnSeparator}\"{description}\"{columnSeparator}{number_of_bids}{columnSeparator}{first_bid}{columnSeparator}{buy_price}{columnSeparator}{started}{columnSeparator}{ends}\n")
 
             bids = item.get('Bids', [])
             if bids:
@@ -101,8 +104,7 @@ def parseJson(json_file):
                     bid = bid_package.get('Bid', {})
                     bid_amount = transformDollar(bid.get('Amount', 'NULL'))
                     bid_time = transformDttm(bid.get('Time', 'NULL'))
-                    bidder = bid.get('Bidder', {})
-                    bidder_id = bidder.get('UserID', 'NULL').replace('"', '""')
+                    bidder_id = escape_quotes(bid.get('Bidder', {}).get('UserID', 'NULL'))
                         
                     with open('bids.dat', 'a') as bids_file:
                         bids_file.write(f"{item_id}{columnSeparator}\"{bidder_id}\"{columnSeparator}{bid_amount}{columnSeparator}{bid_time}\n")
