@@ -99,7 +99,6 @@ def parseJson(json_file):
             location = escape_quotes(item.get('Location','NULL')) if 'Location' in item else 'NULL'
             country = escape_quotes(item.get('Country','NULL')) if 'Country' in item else 'NULL'
 
-
             with open('categories.dat', 'a') as cat_file:
                 for category in categories:
                     cat_file.write(f"{item_id}{columnSeparator}\"{category}\"\n")
@@ -120,8 +119,19 @@ def parseJson(json_file):
                     bid = bid_package.get('Bid', {})
                     bid_amount = transformDollar(bid.get('Amount', 'NULL'))
                     bid_time = transformDttm(bid.get('Time', 'NULL'))
-                    bidder_id = escape_quotes(bid.get('Bidder', {}).get('UserID', 'NULL'))
-                    
+                    bidder = bid.get('Bidder', {})
+                    bidder_id = escape_quotes(bidder.get('UserID', 'NULL'))
+                    bidder_location = escape_quotes(bidder.get('Location', 'NULL'))
+                    bidder_country = escape_quotes(bidder.get('Country', 'NULL'))
+                    bidder_rating = str(bidder.get('Rating', 'NULL'))
+
+                    # Add bidder to users.dat if not already existing
+                    if bidder_id not in existing_users:
+                        with open('users.dat', 'a') as user_file:
+                            user_file.write(f"{bidder_id}{columnSeparator}\"{bidder_location}\"{columnSeparator}\"{bidder_country}\"{columnSeparator}{bidder_rating}\n")
+                            existing_users.add(bidder_id)
+
+                    # Write bid information to bids.dat
                     with open('bids.dat', 'a') as bids_file:
                         bids_file.write(f"{item_id}{columnSeparator}\"{bidder_id}\"{columnSeparator}{bid_amount}{columnSeparator}{bid_time}\n")
         
