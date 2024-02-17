@@ -1,3 +1,5 @@
-SELECT COUNT(DISTINCT CategoryName) 
-FROM Item 
-WHERE ItemID IN (SELECT DISTINCT ItemID FROM Bid WHERE Amount > 100);
+SELECT COUNT(DISTINCT c.CategoryName)
+FROM Category c
+JOIN Item i ON c.ItemID = i.ItemID
+JOIN Bid b ON i.ItemID = b.ItemID
+WHERE b.Amount > 100;
