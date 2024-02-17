@@ -7,3 +7,5 @@ update User set Country = null where Country = 'NULL';
 update User set Location = null where Location = 'NULL';
 
 .import categories.dat Category
+
+.import bids.dat Bid

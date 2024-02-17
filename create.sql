@@ -26,7 +26,7 @@ CREATE TABLE Item (
     Buy_Price REAL,
     Started DATE,
     Ends DATE,
-    SellerID INTEGER,
+    SellerID TEXT,
     CategoryName TEXT,
     FOREIGN KEY (SellerID) REFERENCES User(UserID),
     FOREIGN KEY (CategoryName) REFERENCES Category(CategoryName)
@@ -35,10 +35,10 @@ CREATE TABLE Item (
 -- Bid Table
 CREATE TABLE Bid (
     ItemID INTEGER,
-    UserID INTEGER,
+    UserID TEXT,
     Amount REAL,
     Time DATE,
-    PRIMARY KEY (ItemID, UserID),
+    PRIMARY KEY (ItemID, UserID, Time),
     FOREIGN KEY (ItemID) REFERENCES Item(ItemID),
     FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
