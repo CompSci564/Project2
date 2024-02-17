@@ -101,7 +101,7 @@ def parseJson(json_file):
 
             with open('categories.dat', 'a') as cat_file:
                 for category in categories:
-                    cat_file.write(f"{item_id}{columnSeparator}\"{category}\"\n")
+                    cat_file.write(f"\"{category}\"{columnSeparator}{item_id}\n")
 
             seller_id = escape_quotes(item['Seller']['UserID'])
             seller_rating = str(item['Seller']['Rating'])

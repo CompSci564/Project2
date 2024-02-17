@@ -1,14 +1,18 @@
 -- User Table
 CREATE TABLE User (
-    UserID TEXT PRIMARY KEY,
+    UserID TEXT,
+    Rating INTEGER,
     Location TEXT,
     Country TEXT,
-    Rating INTEGER
+    PRIMARY KEY (UserID, Rating)
 );
 
 -- Category Table
 CREATE TABLE Category (
-    CategoryName TEXT PRIMARY KEY
+    CategoryName TEXT,
+    ItemID INTEGER,
+    PRIMARY KEY (CategoryName, ItemID),
+    FOREIGN KEY (ItemID) REFERENCES Item(ItemID)
 );
 
 -- Item Table
