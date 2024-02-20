@@ -1,10 +1,9 @@
 -- User Table
 CREATE TABLE User (
-    UserID TEXT,
+    UserID TEXT PRIMARY KEY,
     Rating INTEGER,
     Location TEXT,
-    Country TEXT,
-    PRIMARY KEY (UserID, Rating)
+    Country TEXT
 );
 
 -- Category Table
