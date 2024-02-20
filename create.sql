@@ -25,9 +25,9 @@ CREATE TABLE Item (
     Buy_Price REAL,
     Started DATE,
     Ends DATE,
-    SellerID TEXT,
+    UserID TEXT,
     CategoryName TEXT,
-    FOREIGN KEY (SellerID) REFERENCES User(UserID),
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
     FOREIGN KEY (CategoryName) REFERENCES Category(CategoryName)
 );
 

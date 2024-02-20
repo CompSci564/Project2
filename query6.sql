@@ -1,3 +1,3 @@
 SELECT COUNT(DISTINCT Bid.UserID)
 FROM Bid, Item
-WHERE Bid.UserID = Item.SellerID
+WHERE Bid.UserID = Item.UserID
